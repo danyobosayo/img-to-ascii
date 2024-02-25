@@ -2,8 +2,7 @@
 # numpy for computing
 from PIL import Image
 import numpy as np
-import math
-import sys, random, argparse
+import argparse
 
 
 # these are two different scales, scale1 has 70 levels of brightness, whereas scale2 has 10 levels.
@@ -19,7 +18,7 @@ def getAverageL(image):
 def convertImageToAscii(fileName, cols, scale, moreLevels):
     global grayscale1, grayscale2
     # find and process the image and convert to grayscale.
-    image = Image.open('filler.jpg').convert('L')
+    image = Image.open(fileName).convert('L')
 
     # find and store the dimensions of the image. ex: 1920 x 1080
     W, H = image.size[0], image.size[1]
@@ -51,8 +50,12 @@ def convertImageToAscii(fileName, cols, scale, moreLevels):
     # crop the image and extract the specific tile
             img = image.crop((x1, y1, x2, y2))
             avg = int(getAverageL(img))
-            gsval = grayscale1[int((avg*69)/255)]
-            #gsval = grayscale2[int((avg*9)/255)]
+            if moreLevels:
+                gsval = grayscale1[int((avg*69)/255) % len(grayscale1)] 
+            else:
+                gsval = grayscale2[int((avg*9)/255) % len(grayscale2)]  
+            
+            
             aimg[j] += gsval                    # append the char into this image array
     
     return aimg
