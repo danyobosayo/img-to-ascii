@@ -11,7 +11,7 @@ Project that processes an image, and converts it into ascii characters based on 
     ```bash
     python -m venv myenv
     ```
-4. Activate the virtual environment:
+4. Activate the virtual environment:<br>
     On Windows:
     ```bash
     myenv\Scripts\activate
